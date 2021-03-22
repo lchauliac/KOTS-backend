@@ -1,0 +1,10 @@
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/ServletInitializer.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/service/AccountService.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/security/CustomerAuthenticationFilter.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/repository/AccountRepository.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/KotsBackendApplication.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/rest/AccountController.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/security/UserCredentials.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/domain/UserEntity.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/security/SecurityConf.java
+/Users/alexandrepaprocki/Desktop/KOTS/back/src/main/java/com/sigma/KOTSbackend/rest/DTO/UserRequest.java
