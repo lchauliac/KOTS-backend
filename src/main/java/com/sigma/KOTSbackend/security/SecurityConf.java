@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,10 +54,12 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 HttpMethod.POST.name(),
                 HttpMethod.DELETE.name()
         ));
-        /*configuration.addAllowedOrigin("http://kingofthespeedrun.csid.agilitejoviale.fr/");*/
+
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        configuration.setAllowedOrigins(Collections.singletonList("http://kingofthespeedrun.csid.agilitejoviale.fr/"));
+        List<String> origins = new ArrayList<>();
+        origins.add("http://localhost:4200");
+        origins.add("http://kingofthespeedrun.csid.agilitejoviale.fr");
+        configuration.setAllowedOrigins(origins);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
         return source;
