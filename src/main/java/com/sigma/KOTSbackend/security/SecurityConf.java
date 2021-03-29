@@ -53,9 +53,10 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
                 HttpMethod.POST.name(),
                 HttpMethod.DELETE.name()
         ));
-
+        /*configuration.addAllowedOrigin("http://kingofthespeedrun.csid.agilitejoviale.fr/");*/
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Collections.singletonList("http://kingofthespeedrun.csid.agilitejoviale.fr/"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
         return source;

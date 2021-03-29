@@ -26,7 +26,7 @@ public class AccountController {
      this.accountService.registerUser(request);
     }
 
-    @GetMapping("/get/user")
+    @GetMapping("/user")
     public UserEntity getUser(Principal principal){
         return this.accountService.getUser(principal.getName());
     }
