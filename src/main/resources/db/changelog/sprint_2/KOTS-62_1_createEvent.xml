@@ -1,0 +1,39 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="KOTS-62_1_createEvent" author="alex">
+        <createTable tableName="tournament">
+            <column name="id"  type="int" autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="specificity"  type="varchar">
+            </column>
+            <column name="description"  type="text">
+            </column>
+            <column name="conditions"  type="varchar">
+            </column>
+            <column name="iduser"  type="int">
+                <constraints  foreignKeyName="fk_tournament_user_account" references="user_account(id)"  nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="challenge">
+            <column name="id"  type="int" autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column name="specificity"  type="varchar">
+            </column>
+            <column name="description"  type="text">
+            </column>
+            <column name="conditions"  type="varchar">
+            </column>
+            <column name="iduser"  type="int">
+                <constraints  foreignKeyName="fk_challenge_user_account" references="user_account(id)"  nullable="false"/>
+            </column>
+        </createTable>
+        <!--<sql dbms="postgresql" endDelimiter=";">create user alex3 with password '12345'</sql>
+        <sql dbms="postgresql" endDelimiter=";">grant all privileges on database kots2 to alex3</sql>-->
+    </changeSet>
+</databaseChangeLog>

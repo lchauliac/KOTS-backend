@@ -7,5 +7,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="sprint_1/KOTS-14_1_initDB.xml"
              relativeToChangelogFile="true"/>
+    <include file="sprint_2/KOTS-62_1_createEvent.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
