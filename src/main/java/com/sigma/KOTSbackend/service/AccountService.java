@@ -10,10 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
-import com.sigma.KOTSbackend.rest.model.UserAccount;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -38,7 +37,7 @@ public class AccountService {
     }
 
 
-    public UserAccount getUser(String username){
-        return (UserAccount) this.accountRepository.findByUsername(username).stream().map(new UserAccount(this,this,this));
+    public UserEntity getUser(String username){
+        return this.accountRepository.findByUsername(username);
     }
 }

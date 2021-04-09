@@ -28,7 +28,7 @@ public class AccountController {
     }
 
     @GetMapping("/user")
-    public UserAccount getUser(Principal principal){
+    public UserEntity getUser(Principal principal){
         return this.accountService.getUser(principal.getName());
     }
 }
