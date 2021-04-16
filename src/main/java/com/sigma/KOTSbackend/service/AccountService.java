@@ -32,7 +32,7 @@ public class AccountService {
         UserDetails userDetails = new User(request.getUsername(),newPassword.encode(request.getPassword()), List.of(new SimpleGrantedAuthority("USER")));
         this.jdbcUserDetailsManager.createUser(userDetails);
 
-        UserEntity user=new UserEntity(request.getUsername(),request.getMail());
+        UserEntity user=new UserEntity(request.getUsername(),request.getMail(),request.getDescription(), request.getYoutube(), request.getTwitch());
         this.accountRepository.save(user);
     }
 
