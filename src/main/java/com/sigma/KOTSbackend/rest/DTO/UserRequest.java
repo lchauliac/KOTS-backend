@@ -4,17 +4,11 @@ public class UserRequest {
     private String username;
     private String password;
     private String mail;
-    private String description;
-    private String twitch;
-    private String youtube;
 
-    public UserRequest(String username, String password, String mail, String description, String twitch, String youtube) {
+    public UserRequest(String username, String password, String mail) {
         this.username = username;
         this.password = password;
         this.mail = mail;
-        this.description = description;
-        this.twitch = twitch;
-        this.youtube = youtube;
     }
 
     public String getUsername() {
@@ -27,17 +21,5 @@ public class UserRequest {
 
     public String getMail() {
         return mail;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getTwitch() {
-        return twitch;
-    }
-
-    public String getYoutube() {
-        return youtube;
     }
 }
