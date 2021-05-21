@@ -38,9 +38,13 @@ public class AccountController {
         return this.accountService.changePassword(request.getUsername(), request.getPassword());
     }
 
-
     @PutMapping("/update")
     public void update(Principal principal, @RequestBody(required = true) ProfilRequest request){
        this.accountService.updateProfil(principal.getName(),request);
+    }
+
+    @GetMapping("/username/{idUser}")
+    public String getUsername(@PathVariable int idUser){
+        return this.accountService.getUsername(idUser);
     }
 }

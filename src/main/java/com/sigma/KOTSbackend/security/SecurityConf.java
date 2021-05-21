@@ -36,7 +36,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.csrf().disable();
         http.cors().configurationSource(corsConfigurationSource());
-        http.authorizeRequests().antMatchers("/register","/login","/update","/password").permitAll().anyRequest()
+        http.authorizeRequests().antMatchers("/register","/login","/update","/password","/player/challenge/register","/player/challenge/get/{idChallenge}","/player/challenge/get/").permitAll().anyRequest()
                 .authenticated()
                 .and()
                 .logout().permitAll()
@@ -58,6 +58,7 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
         configuration.setAllowCredentials(true);
         List<String> origins = new ArrayList<>();
         origins.add("http://localhost:4200");
+        origins.add("http://127.0.0.1:8080/");
         origins.add("https://kingofthespeedrun.csid.agilitejoviale.fr");
         configuration.setAllowedOrigins(origins);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

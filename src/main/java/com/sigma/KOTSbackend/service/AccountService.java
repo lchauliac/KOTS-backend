@@ -13,8 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-import java.security.Security;
 import java.util.List;
 
 @Service
@@ -67,30 +65,9 @@ public class AccountService {
             this.jdbcUserDetailsManager.changePassword(currentUser.getPassword(), password);
             return true;
         }
-        /*
-        UserDetails currentUser = this.jdbcUserDetailsManager.loadUserByUsername(username);
-        if (this.newPassword.matches(newPassword, currentUser.getPassword())){
-            System.out.println("error existe déjà : " + newPassword);
-        return false;
-    } else{
-            String password = this.newPassword.encode(newPassword);
-        UserDetails userDetails = new User(username,password , List.of(new SimpleGrantedAuthority("USER")));
+    }
 
-            System.out.println("password : "+newPassword);
-            System.out.println("password : "+password);
-            System.out.println("password : "+currentUser.getPassword());
-            System.out.println();
-        this.jdbcUserDetailsManager.changePassword(currentUser.getPassword(),password);
-            this.jdbcUserDetailsManager.setChangePasswordSql(password);
-        this.jdbcUserDetailsManager.updateUser(currentUser);
-       // this.jdbcUserDetailsManager.updateUser(userDetails);
-        currentUser=this.jdbcUserDetailsManager.loadUserByUsername(username);
-        System.out.println("password : "+newPassword);
-        System.out.println("password : "+password);
-        System.out.println("password : "+currentUser.getPassword());
-
-
-        return true;
-        }*/
+    public String getUsername(int idUser){
+        return this.accountRepository.findById(idUser).getUsername();
     }
 }

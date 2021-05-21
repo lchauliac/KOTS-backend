@@ -9,5 +9,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
              relativeToChangelogFile="true"/>
     <include file="sprint_2/KOTS-62_1_createEvent.xml"
              relativeToChangelogFile="true"/>
+    <include file="sprint_3/KOTS-42_1_createPlayers.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

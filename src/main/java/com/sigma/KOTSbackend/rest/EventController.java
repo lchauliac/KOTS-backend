@@ -1,17 +1,16 @@
 package com.sigma.KOTSbackend.rest;
 
 import com.sigma.KOTSbackend.domain.ChallengeEntity;
+import com.sigma.KOTSbackend.domain.PlayerEntity;
 import com.sigma.KOTSbackend.domain.TournamentEntity;
 import com.sigma.KOTSbackend.rest.DTO.ChallengeRequest;
 import com.sigma.KOTSbackend.rest.DTO.EventRequest;
+import com.sigma.KOTSbackend.rest.DTO.PlayerRequest;
 import com.sigma.KOTSbackend.rest.DTO.TournamentRequest;
-import com.sigma.KOTSbackend.rest.model.Challenge;
-import com.sigma.KOTSbackend.rest.model.Tournament;
 import com.sigma.KOTSbackend.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin
@@ -52,5 +51,16 @@ public class EventController {
     @PutMapping("/challenge/register")
     public void registerChallenge(@RequestBody(required = true) EventRequest request) {
         this.eventService.registerChallenge(request.getIdEvent(),request.getIdUser());
+    }
+
+    @PostMapping("/player/challenge/register")
+    public void registerPlayerChallenge(@RequestBody(required = true) PlayerRequest request){
+        System.out.println("id Challenge Controller: "+request.getIdEvent());
+        this.eventService.registerPlayerChallenge(request);
+    }
+
+    @GetMapping("/player/challenge/get/{idChallenge}")
+    public List<PlayerEntity> getChallengePlayers(@PathVariable int idChallenge){
+        return this.eventService.getPlayers(idChallenge);
     }
 }
