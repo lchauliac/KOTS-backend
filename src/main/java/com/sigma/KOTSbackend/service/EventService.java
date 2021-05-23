@@ -2,6 +2,7 @@ package com.sigma.KOTSbackend.service;
 
 import com.sigma.KOTSbackend.domain.ChallengeEntity;
 import com.sigma.KOTSbackend.domain.PlayerEntity;
+import com.sigma.KOTSbackend.domain.PlayerEntityPK;
 import com.sigma.KOTSbackend.domain.TournamentEntity;
 import com.sigma.KOTSbackend.repository.ChallengeRepository;
 import com.sigma.KOTSbackend.repository.PlayerRepository;
@@ -9,6 +10,7 @@ import com.sigma.KOTSbackend.repository.TournamentRepository;
 import com.sigma.KOTSbackend.rest.DTO.ChallengeRequest;
 import com.sigma.KOTSbackend.rest.DTO.PlayerRequest;
 import com.sigma.KOTSbackend.rest.DTO.TournamentRequest;
+import com.sigma.KOTSbackend.rest.DTO.ValidateRunRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,4 +71,10 @@ public class EventService {
         this.playerRepository.save(player);
     }
 
+    public void validateRun(ValidateRunRequest request) {
+        PlayerEntityPK playerId = new PlayerEntityPK(request.getIdUser(),request.getIdEvent());
+        PlayerEntity player = this.playerRepository.getOne(playerId);
+        player.setApproved(request.isValidation());
+        this.playerRepository.save(player);
+    }
 }

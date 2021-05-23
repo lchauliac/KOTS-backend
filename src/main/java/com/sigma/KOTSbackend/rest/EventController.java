@@ -3,10 +3,7 @@ package com.sigma.KOTSbackend.rest;
 import com.sigma.KOTSbackend.domain.ChallengeEntity;
 import com.sigma.KOTSbackend.domain.PlayerEntity;
 import com.sigma.KOTSbackend.domain.TournamentEntity;
-import com.sigma.KOTSbackend.rest.DTO.ChallengeRequest;
-import com.sigma.KOTSbackend.rest.DTO.EventRequest;
-import com.sigma.KOTSbackend.rest.DTO.PlayerRequest;
-import com.sigma.KOTSbackend.rest.DTO.TournamentRequest;
+import com.sigma.KOTSbackend.rest.DTO.*;
 import com.sigma.KOTSbackend.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -62,5 +59,10 @@ public class EventController {
     @GetMapping("/player/challenge/get/{idChallenge}")
     public List<PlayerEntity> getChallengePlayers(@PathVariable int idChallenge){
         return this.eventService.getPlayers(idChallenge);
+    }
+
+    @PutMapping("/challenge/validate")
+    public void validateRun(@RequestBody(required = true)ValidateRunRequest request){
+        this.eventService.validateRun(request);
     }
 }
