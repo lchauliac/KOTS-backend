@@ -3,25 +3,25 @@ package com.sigma.KOTSbackend.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PlayerEntityPK implements Serializable {
-    private int iduser;
+public class ChallengeParticipationEntityPK implements Serializable {
+    private int idrun;
     private int idchallenge;
 
-    public PlayerEntityPK(int iduser, int idchallenge) {
-        this.iduser = iduser;
+    public ChallengeParticipationEntityPK(int idrun, int idchallenge) {
+        this.idrun = idrun;
         this.idchallenge = idchallenge;
     }
 
-    public PlayerEntityPK(){
+    public ChallengeParticipationEntityPK() {
 
     }
 
-    public int getIduser() {
-        return iduser;
+    public int getIdrun() {
+        return idrun;
     }
 
-    public void setIduser(int iduser) {
-        this.iduser = iduser;
+    public void setIdrun(int idrun) {
+        this.idrun = idrun;
     }
 
     public int getIdchallenge() {
@@ -36,12 +36,12 @@ public class PlayerEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PlayerEntityPK that = (PlayerEntityPK) o;
-        return iduser == that.iduser && idchallenge == that.idchallenge;
+        ChallengeParticipationEntityPK that = (ChallengeParticipationEntityPK) o;
+        return idrun == that.idrun && idchallenge == that.idchallenge;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(iduser, idchallenge);
+        return Objects.hash(idrun, idchallenge);
     }
 }

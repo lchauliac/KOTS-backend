@@ -1,17 +1,17 @@
 package com.sigma.KOTSbackend.rest.DTO;
 
-public class PlayerRequest {
+public class ParticipationRequest {
 
     private int idUser;
     private int idEvent;
     private String timer;
-    private String url_youtube;
+    private String videoid;
 
-    public PlayerRequest(int idUser, int idEvent, String timer, String url_youtube) {
+    public ParticipationRequest(int idUser, int idEvent, String timer, String videoid) {
         this.idUser = idUser;
         this.idEvent = idEvent;
         this.timer = timer;
-        this.url_youtube = url_youtube;
+        this.videoid = videoid;
     }
 
     public int getIdUser() {
@@ -26,7 +26,7 @@ public class PlayerRequest {
         return timer;
     }
 
-    public String getUrl_youtube() {
-        return url_youtube;
+    public String getVideoid() {
+        return videoid;
     }
 }

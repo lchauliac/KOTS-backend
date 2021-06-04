@@ -1,0 +1,45 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="KOTS-42_1_createRun" author="alex">
+        <createTable tableName="run">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="timer"  type="int">
+            </column>
+            <column name="videoid"  type="varchar">
+            </column>
+            <column name="iduser"  type="int">
+                <constraints  foreignKeyName="fk_run_user_account" references="user_account(id)"  nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="challenge_participation">
+            <column name="idrun" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_challenge_participation_run" references="run(id)" nullable="false"/>
+            </column>
+            <column name="idchallenge" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_challenge_participation_challenge" references="challenge(id)" nullable="false"/>
+            </column>
+            <column name="state"  type="varchar">
+            </column>
+            <column name="msgadmin"  type="varchar">
+            </column>
+        </createTable>
+        <createTable tableName="tournament_participation">
+            <column name="idrun" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_tournament_participation_run" references="run(id)" nullable="false"/>
+            </column>
+            <column name="idtournament" type="int">
+                <constraints primaryKey="true" foreignKeyName="fk_tournament_participation_tournament" references="tournament(id)" nullable="false"/>
+            </column>
+            <column name="state"  type="varchar">
+            </column>
+            <column name="msgadmin"  type="varchar">
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

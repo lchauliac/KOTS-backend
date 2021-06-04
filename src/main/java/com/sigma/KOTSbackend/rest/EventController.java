@@ -1,7 +1,8 @@
 package com.sigma.KOTSbackend.rest;
 
 import com.sigma.KOTSbackend.domain.ChallengeEntity;
-import com.sigma.KOTSbackend.domain.PlayerEntity;
+import com.sigma.KOTSbackend.domain.ChallengeParticipationEntity;
+import com.sigma.KOTSbackend.domain.RunEntity;
 import com.sigma.KOTSbackend.domain.TournamentEntity;
 import com.sigma.KOTSbackend.rest.DTO.*;
 import com.sigma.KOTSbackend.service.EventService;
@@ -40,25 +41,24 @@ public class EventController {
         return this.eventService.getChallenge();
     }
 
-    @PutMapping("/tournament/register")
-    public void registerTournament(@RequestBody(required = true) EventRequest request) {
-        this.eventService.registerTournament(request.getIdEvent(),request.getIdUser());
+    @PostMapping("/participate/tournament")
+    public void registerParticipationTournament(@RequestBody(required = true) ParticipationRequest request){
+        this.eventService.registerParticipationTournament(request);
     }
 
-    @PutMapping("/challenge/register")
-    public void registerChallenge(@RequestBody(required = true) EventRequest request) {
-        this.eventService.registerChallenge(request.getIdEvent(),request.getIdUser());
+    @PostMapping("/participate/challenge")
+    public void registerParticipationChallenge(@RequestBody(required = true) ParticipationRequest request){
+        this.eventService.registerParticipationChallenge(request);
     }
 
-    @PostMapping("/player/challenge/register")
-    public void registerPlayerChallenge(@RequestBody(required = true) PlayerRequest request){
-        System.out.println("id Challenge Controller: "+request.getIdEvent());
-        this.eventService.registerPlayerChallenge(request);
+    @GetMapping("/participate/tournament/get{idTournament}")
+    public List<RunEntity> getParticipationTournament(@PathVariable int idTournament){
+        return this.eventService.getParticipationTournament(idTournament);
     }
 
-    @GetMapping("/player/challenge/get/{idChallenge}")
-    public List<PlayerEntity> getChallengePlayers(@PathVariable int idChallenge){
-        return this.eventService.getPlayers(idChallenge);
+    @GetMapping("/participate/challenge/get/{idChallenge}")
+    public List<RunEntity> getParticipationChallenge(@PathVariable int idChallenge){
+        return this.eventService.getParticipationChallenge(idChallenge);
     }
 
     @PutMapping("/challenge/validate")

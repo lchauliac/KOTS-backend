@@ -1,19 +1,16 @@
 package com.sigma.KOTSbackend.service;
 
-import com.sigma.KOTSbackend.domain.ChallengeEntity;
-import com.sigma.KOTSbackend.domain.PlayerEntity;
-import com.sigma.KOTSbackend.domain.PlayerEntityPK;
-import com.sigma.KOTSbackend.domain.TournamentEntity;
-import com.sigma.KOTSbackend.repository.ChallengeRepository;
-import com.sigma.KOTSbackend.repository.PlayerRepository;
-import com.sigma.KOTSbackend.repository.TournamentRepository;
+import com.sigma.KOTSbackend.domain.*;
+import com.sigma.KOTSbackend.repository.*;
 import com.sigma.KOTSbackend.rest.DTO.ChallengeRequest;
-import com.sigma.KOTSbackend.rest.DTO.PlayerRequest;
+import com.sigma.KOTSbackend.rest.DTO.ParticipationRequest;
 import com.sigma.KOTSbackend.rest.DTO.TournamentRequest;
 import com.sigma.KOTSbackend.rest.DTO.ValidateRunRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,13 +18,17 @@ public class EventService {
 
     private TournamentRepository tournamentRepository;
     private ChallengeRepository challengeRepository;
-    private PlayerRepository playerRepository;
+    private RunRepository runRepository;
+    private ChallengeParticipationRepository challengeParticipationRepository;
+    private TournamentParticipationRepository tournamentParticipationRepository;
 
     @Autowired
-    public EventService(TournamentRepository tournamentRepository, ChallengeRepository challengeRepository, PlayerRepository playerRepository) {
+    public EventService(TournamentRepository tournamentRepository,ChallengeRepository challengeRepository, RunRepository runRepository,ChallengeParticipationRepository challengeParticipationRepository,TournamentParticipationRepository tournamentParticipationRepository) {
         this.tournamentRepository = tournamentRepository;
         this.challengeRepository = challengeRepository;
-        this.playerRepository = playerRepository;
+        this.runRepository = runRepository;
+        this.challengeParticipationRepository = challengeParticipationRepository;
+        this.tournamentParticipationRepository = tournamentParticipationRepository;
     }
 
 
@@ -49,32 +50,63 @@ public class EventService {
         return this.challengeRepository.findAll();
     }
 
-    public List<PlayerEntity> getPlayers(int idchallenge){
-        return this.playerRepository.findAllByIdchallenge(idchallenge);
-    }
 
-    public void registerTournament(int tournamentId, int userId) {
-        TournamentEntity tournament = this.tournamentRepository.findById(tournamentId).get();
-        tournament.setIdUser(userId);
-        this.tournamentRepository.save(tournament);
-    }
-
-    public void registerChallenge(int challengeId, int userId) {
-        ChallengeEntity challenge = this.challengeRepository.findById(challengeId).get();
-        challenge.setIdUser(userId);
-        this.challengeRepository.save(challenge);
-    }
-
-    public void registerPlayerChallenge(PlayerRequest request){
+    public void registerParticipationChallenge(ParticipationRequest request){
         System.out.println("id Challenge: "+request.getIdEvent());
-        PlayerEntity player = new PlayerEntity(request.getIdUser(),request.getIdEvent(), request.getTimer(), request.getUrl_youtube());
-        this.playerRepository.save(player);
+        RunEntity newRun = new RunEntity(10,request.getVideoid(),request.getIdUser());
+        // newRun.setIdUser(request.getIdUser());
+        // prendre le timer string et le convertir en int 00:00:00 / 3600:60:00
+        // newRun.setTimer(10);
+        // newRun.setVideoid(request.getVideoid());
+        this.runRepository.save(newRun);
+
+        System.out.println("runId = "+newRun.getId());
+        System.out.println("localDate = "+LocalDate.now());
+        ChallengeParticipationEntity participation = new ChallengeParticipationEntity(newRun.getId(), request.getIdEvent(),"waiting","create at "+LocalDate.now());
+        this.challengeParticipationRepository.save(participation);
     }
+
+    public void registerParticipationTournament(ParticipationRequest request){
+        System.out.println("id Challenge: "+request.getIdEvent());
+        RunEntity newRun = new RunEntity(15,request.getVideoid(),request.getIdUser());
+        // newRun.setIdUser(request.getIdUser());
+        // prendre le timer string et le convertir en int 00:00:00 / 3600:60:00
+        // newRun.setTimer(10);
+        // newRun.setVideoid(request.getVideoid());
+        this.runRepository.save(newRun);
+
+        System.out.println("runId = "+newRun.getId());
+        System.out.println("localDate = "+LocalDate.now());
+        TournamentParticipationEntity participation = new TournamentParticipationEntity(newRun.getId(), request.getIdEvent(),"waiting","create at "+LocalDate.now());
+        this.tournamentParticipationRepository.save(participation);
+    }
+
+
+    public List<RunEntity> getParticipationTournament(int idTournament) {
+        List<TournamentParticipationEntity> participations = this.tournamentParticipationRepository.findAllByIdtournament(idTournament);
+        List<RunEntity> runs = null;
+        for( TournamentParticipationEntity participation : participations ) {
+            runs.add(this.runRepository.findById(participation.getIdrun()).get());
+
+        }
+       return runs;
+    }
+
+    public List<RunEntity> getParticipationChallenge(int idChallenge) {
+        List<ChallengeParticipationEntity> participations = this.challengeParticipationRepository.findAllByIdchallenge(idChallenge);
+        List<RunEntity> runs = new ArrayList<>();
+        for( ChallengeParticipationEntity participation : participations ) {
+            runs.add(this.runRepository.findById(participation.getIdrun()).get());
+
+        }
+        return runs;
+    }
+
 
     public void validateRun(ValidateRunRequest request) {
-        PlayerEntityPK playerId = new PlayerEntityPK(request.getIdUser(),request.getIdEvent());
+        /*PlayerEntityPK playerId = new PlayerEntityPK(request.getIdUser(),request.getIdEvent());
         PlayerEntity player = this.playerRepository.getOne(playerId);
         player.setApproved(request.isValidation());
-        this.playerRepository.save(player);
+        this.playerRepository.save(player);*/
     }
 }
