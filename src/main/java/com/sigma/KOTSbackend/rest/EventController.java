@@ -1,7 +1,6 @@
 package com.sigma.KOTSbackend.rest;
 
 import com.sigma.KOTSbackend.domain.ChallengeEntity;
-import com.sigma.KOTSbackend.domain.ChallengeParticipationEntity;
 import com.sigma.KOTSbackend.domain.RunEntity;
 import com.sigma.KOTSbackend.domain.TournamentEntity;
 import com.sigma.KOTSbackend.rest.DTO.*;
@@ -61,8 +60,13 @@ public class EventController {
         return this.eventService.getParticipationChallenge(idChallenge);
     }
 
-    @PutMapping("/challenge/validate")
-    public void validateRun(@RequestBody(required = true)ValidateRunRequest request){
-        this.eventService.validateRun(request);
+    @PutMapping("participate/tournament/validate")
+    public void validateParticipationTournaments(@RequestBody(required = true)ValidateParticipationRequest request){
+        this.eventService.validateParticipationTournament(request);
+    }
+
+    @PutMapping("participate/challenge/validate")
+    public void validateParticipationChallenge(@RequestBody(required = true)ValidateParticipationRequest request){
+        this.eventService.validateParticipationChallenge(request);
     }
 }

@@ -5,7 +5,7 @@ import com.sigma.KOTSbackend.repository.*;
 import com.sigma.KOTSbackend.rest.DTO.ChallengeRequest;
 import com.sigma.KOTSbackend.rest.DTO.ParticipationRequest;
 import com.sigma.KOTSbackend.rest.DTO.TournamentRequest;
-import com.sigma.KOTSbackend.rest.DTO.ValidateRunRequest;
+import com.sigma.KOTSbackend.rest.DTO.ValidateParticipationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,10 +103,22 @@ public class EventService {
     }
 
 
-    public void validateRun(ValidateRunRequest request) {
-        /*PlayerEntityPK playerId = new PlayerEntityPK(request.getIdUser(),request.getIdEvent());
-        PlayerEntity player = this.playerRepository.getOne(playerId);
-        player.setApproved(request.isValidation());
-        this.playerRepository.save(player);*/
+    public void validateParticipationTournament(ValidateParticipationRequest request){
+        TournamentParticipationEntityPK participationId = new TournamentParticipationEntityPK(request.getIdRun(), request.getIdEvent());
+        TournamentParticipationEntity participation = this.tournamentParticipationRepository.getOne(participationId);
+        participation.setState(request.getState());
+        System.out.print("Run is "+request.getState());
+        this.tournamentParticipationRepository.save(participation);
     }
+
+    public void validateParticipationChallenge(ValidateParticipationRequest request) {
+        System.out.println("idRun / idChall "+request.getIdRun()+" / "+request.getIdEvent());
+        ChallengeParticipationEntityPK participationId = new ChallengeParticipationEntityPK(request.getIdRun(), request.getIdEvent());
+        ChallengeParticipationEntity participation = this.challengeParticipationRepository.getOne(participationId);
+        participation.setState(request.getState());
+        System.out.print("Run is "+request.getState());
+        this.challengeParticipationRepository.save(participation);
+    }
+
+
 }
