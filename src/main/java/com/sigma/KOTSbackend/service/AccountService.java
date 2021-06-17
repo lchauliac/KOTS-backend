@@ -3,6 +3,7 @@ package com.sigma.KOTSbackend.service;
 import com.sigma.KOTSbackend.repository.AccountRepository;
 import com.sigma.KOTSbackend.domain.UserEntity;
 import com.sigma.KOTSbackend.rest.DTO.ProfilRequest;
+import com.sigma.KOTSbackend.rest.DTO.UserDTO;
 import com.sigma.KOTSbackend.rest.DTO.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,9 +18,12 @@ import java.util.List;
 @Service
 public class AccountService {
 
-    private final BCryptPasswordEncoder newPassword;
-    private final AccountRepository accountRepository;
-    private final JdbcUserDetailsManager jdbcUserDetailsManager;
+    private BCryptPasswordEncoder newPassword;
+    private AccountRepository accountRepository;
+    private JdbcUserDetailsManager jdbcUserDetailsManager;
+
+    @Autowired
+    private DtoConverterService dtoConverterService;
 
     @Autowired
     public AccountService(BCryptPasswordEncoder newPassword,AccountRepository accountRepository,JdbcUserDetailsManager jdbcUserDetailsManager){
@@ -37,8 +41,8 @@ public class AccountService {
     }
 
 
-    public UserEntity getUser(String username){
-        return this.accountRepository.findByUsername(username);
+    public UserDTO getUser(String username){
+        return this.dtoConverterService.map(this.accountRepository.findByUsername(username), UserDTO.class);
     }
 
     public void updateProfil(String username, ProfilRequest request) {

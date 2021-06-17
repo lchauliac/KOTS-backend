@@ -1,7 +1,7 @@
 package com.sigma.KOTSbackend.rest;
 
-import com.sigma.KOTSbackend.domain.UserEntity;
 import com.sigma.KOTSbackend.rest.DTO.ProfilRequest;
+import com.sigma.KOTSbackend.rest.DTO.UserDTO;
 import com.sigma.KOTSbackend.rest.DTO.UserRequest;
 import com.sigma.KOTSbackend.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class AccountController {
     }
 
     @GetMapping("/user")
-    public UserEntity getUser(Principal principal){
+    public UserDTO getUser(Principal principal){
         return this.accountService.getUser(principal.getName());
     }
 
