@@ -2,10 +2,7 @@ package com.sigma.KOTSbackend.service;
 
 import com.sigma.KOTSbackend.domain.*;
 import com.sigma.KOTSbackend.repository.*;
-import com.sigma.KOTSbackend.rest.DTO.ChallengeRequest;
-import com.sigma.KOTSbackend.rest.DTO.ParticipationRequest;
-import com.sigma.KOTSbackend.rest.DTO.TournamentRequest;
-import com.sigma.KOTSbackend.rest.DTO.ValidateParticipationRequest;
+import com.sigma.KOTSbackend.rest.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +18,19 @@ public class EventService {
     private RunRepository runRepository;
     private ChallengeParticipationRepository challengeParticipationRepository;
     private TournamentParticipationRepository tournamentParticipationRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public EventService(TournamentRepository tournamentRepository,ChallengeRepository challengeRepository, RunRepository runRepository,ChallengeParticipationRepository challengeParticipationRepository,TournamentParticipationRepository tournamentParticipationRepository) {
+    private DtoConverterService dtoConverterService;
+
+    @Autowired
+    public EventService(TournamentRepository tournamentRepository,ChallengeRepository challengeRepository, RunRepository runRepository,ChallengeParticipationRepository challengeParticipationRepository,TournamentParticipationRepository tournamentParticipationRepository, UserRepository userRepository) {
         this.tournamentRepository = tournamentRepository;
         this.challengeRepository = challengeRepository;
         this.runRepository = runRepository;
         this.challengeParticipationRepository = challengeParticipationRepository;
         this.tournamentParticipationRepository = tournamentParticipationRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -53,7 +55,7 @@ public class EventService {
 
     public void registerParticipationChallenge(ParticipationRequest request){
         System.out.println("id Challenge: "+request.getIdEvent());
-        RunEntity newRun = new RunEntity(10,request.getVideoid(),request.getIdUser());
+        RunEntity newRun = new RunEntity(10,request.getVideoid(),this.userRepository.getOne(request.getIdUser()));
         // newRun.setIdUser(request.getIdUser());
         // prendre le timer string et le convertir en int 00:00:00 / 3600:60:00
         // newRun.setTimer(10);
@@ -68,7 +70,7 @@ public class EventService {
 
     public void registerParticipationTournament(ParticipationRequest request){
         System.out.println("id Challenge: "+request.getIdEvent());
-        RunEntity newRun = new RunEntity(15,request.getVideoid(),request.getIdUser());
+        RunEntity newRun = new RunEntity(15,request.getVideoid(),this.userRepository.getOne(request.getIdUser()));
         // newRun.setIdUser(request.getIdUser());
         // prendre le timer string et le convertir en int 00:00:00 / 3600:60:00
         // newRun.setTimer(10);
@@ -82,30 +84,30 @@ public class EventService {
     }
 
 
-    public List<RunEntity> getParticipationTournament(int idTournament) {
+    public List<RunDTO> getParticipationTournament(int idTournament) {
         List<TournamentParticipationEntity> participations = this.tournamentParticipationRepository.findAllByIdtournament(idTournament);
         List<RunEntity> runs = null;
         for( TournamentParticipationEntity participation : participations ) {
             runs.add(this.runRepository.findById(participation.getIdrun()).get());
 
         }
-       return runs;
+       return this.dtoConverterService.mapAsList(runs, RunDTO.class);
     }
 
-    public List<RunEntity> getParticipationChallenge(int idChallenge) {
+    public List<RunDTO> getParticipationChallenge(int idChallenge) {
         List<ChallengeParticipationEntity> participations = this.challengeParticipationRepository.findAllByIdchallenge(idChallenge);
         List<RunEntity> runs = new ArrayList<>();
         for( ChallengeParticipationEntity participation : participations ) {
             runs.add(this.runRepository.findById(participation.getIdrun()).get());
 
         }
-        return runs;
+        return this.dtoConverterService.mapAsList(runs, RunDTO.class);
     }
 
 
     public void validateParticipationTournament(ValidateParticipationRequest request){
         TournamentParticipationEntityPK participationId = new TournamentParticipationEntityPK(request.getIdRun(), request.getIdEvent());
-        TournamentParticipationEntity participation = this.tournamentParticipationRepository.getOne(participationId);
+        TournamentParticipationEntity participation = this.tournamentParticipationRepository.findById(participationId).get();
         participation.setState(request.getState());
         System.out.print("Run is "+request.getState());
         this.tournamentParticipationRepository.save(participation);
@@ -114,7 +116,7 @@ public class EventService {
     public void validateParticipationChallenge(ValidateParticipationRequest request) {
         System.out.println("idRun / idChall "+request.getIdRun()+" / "+request.getIdEvent());
         ChallengeParticipationEntityPK participationId = new ChallengeParticipationEntityPK(request.getIdRun(), request.getIdEvent());
-        ChallengeParticipationEntity participation = this.challengeParticipationRepository.getOne(participationId);
+        ChallengeParticipationEntity participation = this.challengeParticipationRepository.findById(participationId).get();
         participation.setState(request.getState());
         System.out.print("Run is "+request.getState());
         this.challengeParticipationRepository.save(participation);

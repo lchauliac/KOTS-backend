@@ -1,33 +1,17 @@
-package com.sigma.KOTSbackend.domain;
+package com.sigma.KOTSbackend.rest.DTO;
 
-import com.sigma.KOTSbackend.rest.DTO.UserLightDTO;
+public class RunDTO {
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "run")
-public class RunEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
-
-    @Column(name = "timer")
     private int timer;
-
-    @Column(name = "videoid")
     private String videoid;
+    private UserLightDTO user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity user;
-
-    public RunEntity(int timer, String videoid, UserEntity user) {
+    public RunDTO(int id, int timer, String videoid, UserLightDTO user) {
+        this.id = id;
         this.timer = timer;
         this.videoid = videoid;
         this.user = user;
-    }
-
-    public RunEntity() {
     }
 
     public int getId() {
@@ -54,11 +38,11 @@ public class RunEntity {
         this.videoid = videoid;
     }
 
-    public UserEntity getUser() {
+    public UserLightDTO getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(UserLightDTO user) {
         this.user = user;
     }
 }
