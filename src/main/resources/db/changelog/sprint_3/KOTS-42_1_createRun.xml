@@ -13,7 +13,7 @@
             </column>
             <column name="videoid"  type="varchar">
             </column>
-            <column name="iduser"  type="int">
+            <column name="user_id"  type="int">
                 <constraints  foreignKeyName="fk_run_user_account" references="user_account(id)"  nullable="false"/>
             </column>
         </createTable>

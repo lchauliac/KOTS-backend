@@ -86,7 +86,7 @@ public class EventService {
 
     public List<RunDTO> getParticipationTournament(int idTournament) {
         List<TournamentParticipationEntity> participations = this.tournamentParticipationRepository.findAllByIdtournament(idTournament);
-        List<RunEntity> runs = null;
+        List<RunEntity> runs = new ArrayList<>();
         for( TournamentParticipationEntity participation : participations ) {
             runs.add(this.runRepository.findById(participation.getIdrun()).get());
 
@@ -120,6 +120,18 @@ public class EventService {
         participation.setState(request.getState());
         System.out.print("Run is "+request.getState());
         this.challengeParticipationRepository.save(participation);
+    }
+
+    public String getStateParticipationTournament(int idRun,int idTournament){
+        TournamentParticipationEntityPK participationId = new TournamentParticipationEntityPK(idRun, idTournament);
+        TournamentParticipationEntity participation = this.tournamentParticipationRepository.findById(participationId).get();
+        return participation.getState();
+    }
+
+    public String getStateParticipationChallenge(int idRun,int idChallenge) {
+        ChallengeParticipationEntityPK participationId = new ChallengeParticipationEntityPK(idRun, idChallenge);
+        ChallengeParticipationEntity participation = this.challengeParticipationRepository.findById(participationId).get();
+        return participation.getState();
     }
 
 

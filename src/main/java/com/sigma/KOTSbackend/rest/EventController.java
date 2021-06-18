@@ -50,7 +50,7 @@ public class EventController {
         this.eventService.registerParticipationChallenge(request);
     }
 
-    @GetMapping("/participate/tournament/get{idTournament}")
+    @GetMapping("/participate/tournament/get/{idTournament}")
     public List<RunDTO> getParticipationTournament(@PathVariable int idTournament){
         return this.eventService.getParticipationTournament(idTournament);
     }
@@ -60,13 +60,24 @@ public class EventController {
         return this.eventService.getParticipationChallenge(idChallenge);
     }
 
-    @PutMapping("participate/tournament/validate")
+    @PutMapping("/participate/tournament/validate")
     public void validateParticipationTournaments(@RequestBody(required = true)ValidateParticipationRequest request){
         this.eventService.validateParticipationTournament(request);
     }
 
-    @PutMapping("participate/challenge/validate")
+    @PutMapping("/participate/challenge/validate")
     public void validateParticipationChallenge(@RequestBody(required = true)ValidateParticipationRequest request){
         this.eventService.validateParticipationChallenge(request);
     }
+
+    @GetMapping("/participate/tournament/state/get/{idRun}/{idTournament}")
+    public String getStateParticipationTournament(@PathVariable int idRun,@PathVariable int idTournament){
+        return this.eventService.getStateParticipationTournament(idRun,idTournament);
+    }
+
+    @GetMapping("/participate/challenge/state/get/{idRun}/{idChallenge}")
+    public String getStateParticipationChallenge(@PathVariable int idRun,@PathVariable int idChallenge){
+        return this.eventService.getStateParticipationChallenge(idRun,idChallenge);
+    }
+
 }
