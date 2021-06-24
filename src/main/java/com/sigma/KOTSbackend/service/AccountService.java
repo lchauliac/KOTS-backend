@@ -49,8 +49,6 @@ public class AccountService {
         UserEntity user = this.accountRepository.findByUsername(username);
         user.setDescription(request.getDescription());
         user.setMail(request.getMail());
-        System.out.println("twitch: "+request.getTwitch());
-        System.out.println("youtube: "+request.getYoutube());
         user.setTwitch(request.getTwitch());
         user.setYoutube(request.getYoutube());
          this.accountRepository.save(user);
@@ -59,7 +57,6 @@ public class AccountService {
     public boolean changePassword(String username,String newPassword) {
         UserDetails currentUser = this.jdbcUserDetailsManager.loadUserByUsername(username);
         String password = this.newPassword.encode(newPassword);
-        System.out.println("password / currentPassword : "+password+" | "+currentUser.getPassword());
         if (this.newPassword.matches(newPassword, currentUser.getPassword())) {
             System.out.println("error existe déjà : " + newPassword);
             return false;

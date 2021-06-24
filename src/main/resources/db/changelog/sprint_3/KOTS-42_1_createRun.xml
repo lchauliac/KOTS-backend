@@ -9,6 +9,7 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+
             <column name="timer"  type="int">
             </column>
             <column name="videoid"  type="varchar">

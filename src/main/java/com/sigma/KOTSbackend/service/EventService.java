@@ -54,31 +54,17 @@ public class EventService {
 
 
     public void registerParticipationChallenge(ParticipationRequest request){
-        System.out.println("id Challenge: "+request.getIdEvent());
         RunEntity newRun = new RunEntity(10,request.getVideoid(),this.userRepository.getOne(request.getIdUser()));
-        // newRun.setIdUser(request.getIdUser());
-        // prendre le timer string et le convertir en int 00:00:00 / 3600:60:00
-        // newRun.setTimer(10);
-        // newRun.setVideoid(request.getVideoid());
         this.runRepository.save(newRun);
 
-        System.out.println("runId = "+newRun.getId());
-        System.out.println("localDate = "+LocalDate.now());
         ChallengeParticipationEntity participation = new ChallengeParticipationEntity(newRun.getId(), request.getIdEvent(),"waiting","create at "+LocalDate.now());
         this.challengeParticipationRepository.save(participation);
     }
 
     public void registerParticipationTournament(ParticipationRequest request){
-        System.out.println("id Challenge: "+request.getIdEvent());
         RunEntity newRun = new RunEntity(15,request.getVideoid(),this.userRepository.getOne(request.getIdUser()));
-        // newRun.setIdUser(request.getIdUser());
-        // prendre le timer string et le convertir en int 00:00:00 / 3600:60:00
-        // newRun.setTimer(10);
-        // newRun.setVideoid(request.getVideoid());
         this.runRepository.save(newRun);
 
-        System.out.println("runId = "+newRun.getId());
-        System.out.println("localDate = "+LocalDate.now());
         TournamentParticipationEntity participation = new TournamentParticipationEntity(newRun.getId(), request.getIdEvent(),"waiting","create at "+LocalDate.now());
         this.tournamentParticipationRepository.save(participation);
     }
