@@ -1,0 +1,12 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="KOTS-14_0_initAdmin" author="alex">
+        <sql dbms="postgresql" endDelimiter=";">insert into users values('admin','$2y$12$chE08fBQktZUSHwwqaOeFOkam.EzA1TqrUsvRC5U.bjawICgJ/bgK',true)</sql>
+        <sql dbms="postgresql" endDelimiter=";">insert into user_account values(1,'admin','','admin@admin.fr','','')</sql>
+        <sql dbms="postgresql" endDelimiter=";">insert into authorities values('admin','ADMIN')</sql>
+    </changeSet>
+</databaseChangeLog>

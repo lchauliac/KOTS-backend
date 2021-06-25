@@ -23,13 +23,13 @@
             <column name="username"  type="varchar(50)">
                 <constraints  foreignKeyName="fk_user_account_users" references="users(username)"  nullable="false"/>
             </column>
-            <column name="description"  type="varchar(50)">
+            <column name="description"  type="varchar(150)">
             </column>
-            <column name="mail"  type="varchar(50)">
+            <column name="mail"  type="varchar(150)">
             </column>
-            <column name="twitch"  type="varchar(50)">
+            <column name="twitch"  type="varchar(150)">
             </column>
-            <column name="youtube"  type="varchar(50)">
+            <column name="youtube"  type="varchar(150)">
             </column>
         </createTable>
         <createTable tableName="authorities">
@@ -40,7 +40,5 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <!--<sql dbms="postgresql" endDelimiter=";">create user alex3 with password '12345'</sql>
-        <sql dbms="postgresql" endDelimiter=";">grant all privileges on database kots2 to alex3</sql>-->
     </changeSet>
 </databaseChangeLog>

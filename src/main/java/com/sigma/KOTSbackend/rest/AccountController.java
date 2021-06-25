@@ -6,9 +6,16 @@ import com.sigma.KOTSbackend.rest.DTO.UserRequest;
 import com.sigma.KOTSbackend.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @CrossOrigin
@@ -46,5 +53,15 @@ public class AccountController {
     @GetMapping("/username/{idUser}")
     public String getUsername(@PathVariable int idUser){
         return this.accountService.getUsername(idUser);
+    }
+
+    @GetMapping("/roles")
+    public List<GrantedAuthority> getRoleAdmin(){
+        List<GrantedAuthority> listAuthorities = new ArrayList<>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            listAuthorities.addAll(authentication.getAuthorities());
+        }
+        return listAuthorities;
     }
 }

@@ -11,5 +11,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
              relativeToChangelogFile="true"/>
     <include file="sprint_3/KOTS-42_1_createRun.xml"
              relativeToChangelogFile="true"/>
+    <include file="sprint_4/KOTS-14_0_initAdmin.xml"
+             relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
