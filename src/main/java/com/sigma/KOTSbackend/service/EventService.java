@@ -70,7 +70,7 @@ public class EventService {
     }
 
 
-    public List<RunDTO> getParticipationTournament(int idTournament) {
+    public List<RunDTO> getParticipationsTournament(int idTournament) {
         List<TournamentParticipationEntity> participations = this.tournamentParticipationRepository.findAllByIdtournament(idTournament);
         List<RunEntity> runs = new ArrayList<>();
         for( TournamentParticipationEntity participation : participations ) {
@@ -80,7 +80,7 @@ public class EventService {
        return this.dtoConverterService.mapAsList(runs, RunDTO.class);
     }
 
-    public List<RunDTO> getParticipationChallenge(int idChallenge) {
+    public List<RunDTO> getParticipationsChallenge(int idChallenge) {
         List<ChallengeParticipationEntity> participations = this.challengeParticipationRepository.findAllByIdchallenge(idChallenge);
         List<RunEntity> runs = new ArrayList<>();
         for( ChallengeParticipationEntity participation : participations ) {
@@ -95,30 +95,49 @@ public class EventService {
         TournamentParticipationEntityPK participationId = new TournamentParticipationEntityPK(request.getIdRun(), request.getIdEvent());
         TournamentParticipationEntity participation = this.tournamentParticipationRepository.findById(participationId).get();
         participation.setState(request.getState());
-        System.out.print("Run is "+request.getState());
         this.tournamentParticipationRepository.save(participation);
     }
 
     public void validateParticipationChallenge(ValidateParticipationRequest request) {
-        System.out.println("idRun / idChall "+request.getIdRun()+" / "+request.getIdEvent());
         ChallengeParticipationEntityPK participationId = new ChallengeParticipationEntityPK(request.getIdRun(), request.getIdEvent());
         ChallengeParticipationEntity participation = this.challengeParticipationRepository.findById(participationId).get();
         participation.setState(request.getState());
-        System.out.print("Run is "+request.getState());
         this.challengeParticipationRepository.save(participation);
     }
 
-    public String getStateParticipationTournament(int idRun,int idTournament){
+    public State getStateParticipationTournament(int idRun,int idTournament){
         TournamentParticipationEntityPK participationId = new TournamentParticipationEntityPK(idRun, idTournament);
         TournamentParticipationEntity participation = this.tournamentParticipationRepository.findById(participationId).get();
-        return participation.getState();
+        State participationState = new State(participation.getState());
+        return participationState;
     }
 
-    public String getStateParticipationChallenge(int idRun,int idChallenge) {
+    public State getStateParticipationChallenge(int idRun,int idChallenge) {
         ChallengeParticipationEntityPK participationId = new ChallengeParticipationEntityPK(idRun, idChallenge);
         ChallengeParticipationEntity participation = this.challengeParticipationRepository.findById(participationId).get();
-        return participation.getState();
+        State participationState = new State(participation.getState());
+        return participationState;
     }
 
+    public RunDTO getParticipationTournament(int idTournament, int idUser) {
+        RunEntity[] runs = this.runRepository.findAllbyUserId(idUser);
+        List<TournamentParticipationEntity> participations = this.tournamentParticipationRepository.findAllByIdtournament(idTournament);
+        for( RunEntity run : runs ) {
+            if(participations.contains(run.getId())){
+                return this.dtoConverterService.map(run, RunDTO.class);
+            }
+        }
+    return null;
+    }
 
+    public RunDTO getParticipationChallenge(int idChallenge, int idUser) {
+        RunEntity[] runs = this.runRepository.findAllbyUserId(idUser);
+        List<ChallengeParticipationEntity> participations = this.challengeParticipationRepository.findAllByIdchallenge(idChallenge);
+        for( RunEntity run : runs ) {
+            if(participations.contains(run.getId())){
+                return this.dtoConverterService.map(run, RunDTO.class);
+            }
+        }
+        return null;
+    }
 }

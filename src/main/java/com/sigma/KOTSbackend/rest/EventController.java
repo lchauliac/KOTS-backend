@@ -51,13 +51,23 @@ public class EventController {
     }
 
     @GetMapping("/participate/tournament/get/{idTournament}")
-    public List<RunDTO> getParticipationTournament(@PathVariable int idTournament){
-        return this.eventService.getParticipationTournament(idTournament);
+    public RunDTO getParticipationTournament(@PathVariable int idTournament, @PathVariable int idUser){
+        return this.eventService.getParticipationTournament(idTournament,idUser);
     }
 
     @GetMapping("/participate/challenge/get/{idChallenge}")
-    public List<RunDTO> getParticipationChallenge(@PathVariable int idChallenge){
-        return this.eventService.getParticipationChallenge(idChallenge);
+    public RunDTO getParticipationChallenge(@PathVariable int idChallenge, @PathVariable int idUser){
+        return this.eventService.getParticipationChallenge(idChallenge,idUser);
+    }
+
+    @GetMapping("/participate/tournament/get/{idTournament}")
+    public List<RunDTO> getParticipationsTournament(@PathVariable int idTournament){
+        return this.eventService.getParticipationsTournament(idTournament);
+    }
+
+    @GetMapping("/participate/challenge/get/{idChallenge}")
+    public List<RunDTO> getParticipationsChallenge(@PathVariable int idChallenge){
+        return this.eventService.getParticipationsChallenge(idChallenge);
     }
 
     @PutMapping("/participate/tournament/validate")
@@ -71,12 +81,12 @@ public class EventController {
     }
 
     @GetMapping("/participate/tournament/state/get/{idRun}/{idTournament}")
-    public String getStateParticipationTournament(@PathVariable int idRun,@PathVariable int idTournament){
+    public State getStateParticipationTournament(@PathVariable int idRun,@PathVariable int idTournament){
         return this.eventService.getStateParticipationTournament(idRun,idTournament);
     }
 
     @GetMapping("/participate/challenge/state/get/{idRun}/{idChallenge}")
-    public String getStateParticipationChallenge(@PathVariable int idRun,@PathVariable int idChallenge){
+    public State getStateParticipationChallenge(@PathVariable int idRun,@PathVariable int idChallenge){
         return this.eventService.getStateParticipationChallenge(idRun,idChallenge);
     }
 
