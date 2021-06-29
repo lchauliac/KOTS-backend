@@ -50,7 +50,7 @@ public class EventController {
         this.eventService.registerParticipationChallenge(request);
     }
 
-    @GetMapping("/participate/tournament/get/{idTournament}")
+/*    @GetMapping("/participate/tournament/get/{idTournament}")
     public RunDTO getParticipationTournament(@PathVariable int idTournament, @PathVariable int idUser){
         return this.eventService.getParticipationTournament(idTournament,idUser);
     }
@@ -58,7 +58,7 @@ public class EventController {
     @GetMapping("/participate/challenge/get/{idChallenge}")
     public RunDTO getParticipationChallenge(@PathVariable int idChallenge, @PathVariable int idUser){
         return this.eventService.getParticipationChallenge(idChallenge,idUser);
-    }
+    }*/
 
     @GetMapping("/participate/tournament/get/{idTournament}")
     public List<RunDTO> getParticipationsTournament(@PathVariable int idTournament){

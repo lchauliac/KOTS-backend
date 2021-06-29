@@ -119,7 +119,7 @@ public class EventService {
         return participationState;
     }
 
-    public RunDTO getParticipationTournament(int idTournament, int idUser) {
+/*    public RunDTO getParticipationTournament(int idTournament, int idUser) {
         RunEntity[] runs = this.runRepository.findAllbyUserId(idUser);
         List<TournamentParticipationEntity> participations = this.tournamentParticipationRepository.findAllByIdtournament(idTournament);
         for( RunEntity run : runs ) {
@@ -139,5 +139,5 @@ public class EventService {
             }
         }
         return null;
-    }
+    }*/
 }

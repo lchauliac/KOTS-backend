@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RunRepository extends JpaRepository<RunEntity, Integer> {
-    RunEntity[] findAllbyUserId(int UserId);
+    //RunEntity[] findAllbyUserId(int UserId);
 }
